@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,18 +6,12 @@ import { Component, OnInit, Output } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  @Output() recipeRoute = false;
-  @Output() shoppingListRoute = false;
+  @Output() requestRoute = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit() {
   }
-
-  onGetRecipes() {
-    this.recipeRoute = true;
-  }
-
-  onGetShoppingList() {
-    this.shoppingListRoute = true;
+  onGetResource(resourceName: string) {
+    this.requestRoute.emit(resourceName);
   }
 }
