@@ -8,9 +8,4 @@ import { Component, Input } from '@angular/core';
 export class AppComponent {
   route = 'recipes';
   title = 'kucharz';
-
-  onRequestRoute(route: string) {
-    this.route = route;
-  }
-
 }
