@@ -1,0 +1,15 @@
+.help-block {
+  color: red;
+} */
+  
+.has-error {
+  border: 1px solid red;
+  background-color: #FCE4E4;
+  color: red; 
+}
+
+.has-success {
+  border: 1px solid green;
+  background-color: #CAFFC5;
+  color: green;
+}

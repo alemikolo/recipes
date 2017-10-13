@@ -1,32 +1,62 @@
 <div class="row">
   <div class="col-xs-12">
-    <form>
-      <div class="row">
-        <div class="col-sm-5 form-group">
-          <label for="name">Name</label>
+    <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+      <div
+        class="row"
+        id="ingredientData">
+        <div
+          class="col-sm-5 form-group">
+          <label for="ingredient">Ingredient</label>
           <input
             type="text"
-            id="name"
+            id="ingredient"
+            name="ingredient"
             class="form-control"
-            #nameInput>
+            ngModel
+            pattern="[a-zA-Z ]*"
+            required
+            #ingredient="ngModel"
+            [ngClass]="{'has-error': !ingredient.valid && ingredient.touched}">            
+            <span
+              *ngIf="!ingredient.valid && ingredient.touched && ingredient.errors !== null"
+              class="help-block">
+              <span *ngIf="ingredient.errors['required']">This field is required!</span>
+              <span *ngIf="ingredient.errors['pattern']">This field can contain only letters!</span>
+              <!-- <span class="help-block" *ngIf="!ingredient.valid && ingredient.touched">Please enter the ingredient!</span>            >
+              <span class="help-block" *ngIf="!ingredient.valid && ingredient.touched">Please enter the ingredient!</span>             -->
+            </span>            
         </div>
         <div class="col-sm-2 form-group">
           <label for="amount">Amount</label>
           <input
             type="number"
-            id="amoun"
+            name="amount"
+            id="amount"
             class="form-control"
-            #amountInput>
+            ngModel
+            required
+            pattern="^[1-9]+[0-9]*$"
+            #amount="ngModel"
+            [ngClass]="{'has-error': !amount.valid && amount.touched}">
+            <span class="help-block" *ngIf="!amount.valid && amount.touched">Please enter amount!</span>            
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
           <button
             class="btn btn-success"
+            type="submit"
+            [disabled]="!form.valid">{{ editMode ? 'Update' : 'Add' }}</button>
+          <button
+            class="btn btn-danger"
             type="button"
-            (click)="onAddIngredient()">Add</button>
-          <button class="btn btn-danger" type="button">Delete</button>
-          <button class="btn btn-primary" type="button">Clear</button>
+            *ngIf="editMode"
+            (click)="onDeleteItem()">Delete</button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            (click)="onClearForm()"
+            [disabled]="!amount.value && !ingredient.value">Clear</button>
         </div>
       </div>
     </form>
